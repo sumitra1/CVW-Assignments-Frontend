@@ -53,3 +53,26 @@ const newState = {
 
 // country is copied.
 // city is overwritten.
+
+
+// Whenever you update a nested property, copy every level from the root to that property.
+
+// Here the path is:
+
+// state
+//   ↓
+// user
+//   ↓
+// details
+//   ↓
+// city
+
+// So you copy:
+
+// ...state          // Copy state
+// ...state.user     // Copy user
+// ...state.user.details // Copy details
+
+// Then update the final property:
+
+// city: "Chennai"
