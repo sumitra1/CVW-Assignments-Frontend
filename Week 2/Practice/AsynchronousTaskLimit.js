@@ -8,14 +8,35 @@ async function promiseAllWithConcurrencyLimit(tasks, limit) {
   return new Promise((resolve, reject) => {
     let results = new Array(tasks.length);
 
-    let currentRunningCount = 0;
+    let runningTaskCount = 0;
     let nextRunIndex = 0;
 
-    if (currentRunningCount == limit && nextRunIndex == tasks.length) {
+    if (runningTaskCount == limit && nextRunIndex == tasks.length) {
       resolve(results);
       return;
     }
-    function runNextTask(tasks, limit) {}
+    function runNextTask(tasks, limit) {
+
+        while(runningTaskCount<limit && nextRunIndex<tasks.length){
+            
+            const currentTaskIndex=nextRunIndex;
+
+            nextRunIndex++;
+            runningTaskCount++;
+
+            tasks[currentTaskIndex]()
+            .then(result=>{
+                tasks[currentIndex]=result
+            })
+            .catch(reject)
+            .finally(()=>{
+                runningTaskCount--;
+                runNextTask();
+            })
+
+        }
+
+    }
   });
 }
 
