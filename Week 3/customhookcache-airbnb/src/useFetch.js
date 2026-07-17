@@ -96,3 +96,9 @@ export default useFetch;
 //  avoids race conditions when a component unmounts or a dependency changes.
 //   However, I don't use it for every request—for example, form submissions or 
 //   requests that should complete regardless of navigation may not need to be aborted.
+
+
+// ✅ First call to a URL → Fetches from the network and stores the response in the Map.
+// ✅ Another component requesting the same URL within 2 minutes → Gets the cached data instantly (no API call).
+// ✅ After 2 minutes → Cache is considered expired, so a fresh request is made and the cache is updated.
+// ✅ Because cache is declared outside the hook, it is shared across all components and is not recreated on every render.
